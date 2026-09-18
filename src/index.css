@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────────── */
+:root {
+  --color-obsidian: #0a0a0f;
+  --color-surface: #12121a;
+  --color-surface-2: #1a1a28;
+  --color-glass: rgba(255, 255, 255, 0.04);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-cyan: #00f5ff;
+  --color-amber: #ffb800;
+  --color-crimson: #ff2d55;
+  --color-violet: #c084fc;
+  --color-emerald: #34d399;
+}
+
+/* ─── Base Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body, #root {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--color-obsidian);
+  color: #e2e8f0;
+  font-family: 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Glassmorphism Utilities ────────────────────────────────────── */
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(16px) saturate(180%);
+    -webkit-backdrop-filter: blur(16px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .glass-cyan {
+    background: rgba(0, 245, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(0, 245, 255, 0.2);
+  }
+
+  .glass-amber {
+    background: rgba(255, 184, 0, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 184, 0, 0.2);
+  }
+
+  .glass-crimson {
+    background: rgba(255, 45, 85, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 45, 85, 0.2);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 20px rgba(0, 245, 255, 0.7), 0 0 40px rgba(0, 245, 255, 0.3);
+  }
+
+  .text-glow-amber {
+    text-shadow: 0 0 20px rgba(255, 184, 0, 0.7), 0 0 40px rgba(255, 184, 0, 0.3);
+  }
+
+  .text-glow-crimson {
+    text-shadow: 0 0 20px rgba(255, 45, 85, 0.7), 0 0 40px rgba(255, 45, 85, 0.3);
+  }
+
+  .border-glow-cyan {
+    box-shadow: 0 0 15px rgba(0, 245, 255, 0.3), inset 0 0 15px rgba(0, 245, 255, 0.05);
+  }
+
+  .font-orbitron {
+    /* Be Vietnam Pro: full Vietnamese diacritics + wide weight range */
+    font-family: 'Be Vietnam Pro', 'Inter', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  .font-mono-space {
+    font-family: 'JetBrains Mono', 'Courier New', monospace;
+  }
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--color-surface); }
+::-webkit-scrollbar-thumb { background: rgba(0, 245, 255, 0.3); border-radius: 2px; }
+
+/* ─── Transition overlay ─────────────────────────────────────────── */
+.transition-flash {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  animation: flash-in-out 0.5s ease-out forwards;
+}
+
+@keyframes flash-in-out {
+  0% { opacity: 0; }
+  40% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+/* ─── Station card flip ──────────────────────────────────────────── */
+.flip-card { perspective: 1000px; }
+.flip-card-inner {
+  transition: transform 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform-style: preserve-3d;
+}
+.flip-card.flipped .flip-card-inner { transform: rotateY(180deg); }
+.flip-card-front, .flip-card-back { backface-visibility: hidden; }
+.flip-card-back { transform: rotateY(180deg); }
+
+/* ─── Subtle star-field background ──────────────────────────────── */
+.starfield {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(0, 245, 255, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(192, 132, 252, 0.03) 0%, transparent 60%),
+    radial-gradient(ellipse at 60% 80%, rgba(255, 45, 85, 0.02) 0%, transparent 60%);
+  z-index: 0;
+}
+
+/* ─── Button Styles ──────────────────────────────────────────────── */
+.btn-cyber {
+  position: relative;
+  overflow: hidden;
+  background: transparent;
+  border: 1px solid currentColor;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-family: 'Orbitron', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.btn-cyber::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: currentColor;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.btn-cyber:hover::before { opacity: 0.1; }
+.btn-cyber:active::before { opacity: 0.2; }
+
+/* ─── Loading bar ────────────────────────────────────────────────── */
+@keyframes loading-scan {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(400%); }
+}
+.loading-scan {
+  animation: loading-scan 1.5s ease-in-out infinite;
+}
+
+/* ─── HUD slide-in ───────────────────────────────────────────────── */
+@keyframes hud-slide-in {
+  from { opacity: 0; transform: translateX(30px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.hud-enter { animation: hud-slide-in 0.5s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+
+/* ─── Glitch text effect ─────────────────────────────────────────── */
+@keyframes glitch {
+  0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+  20% { clip-path: inset(30% 0 50% 0); transform: translate(-2px, 1px); }
+  40% { clip-path: inset(60% 0 20% 0); transform: translate(2px, -1px); }
+  60% { clip-path: inset(10% 0 80% 0); transform: translate(1px, 2px); }
+  80% { clip-path: inset(80% 0 5% 0); transform: translate(-1px, -2px); }
+}
